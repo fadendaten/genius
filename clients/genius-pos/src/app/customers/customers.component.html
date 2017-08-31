@@ -1,0 +1,141 @@
+<div class="card deep-purple darken-1">
+  <form (ngSubmit)="save()">
+    <div class="card-content white-text">
+      <span class="card-title">{{ customer.toString() || "Neuer Kunde" }}</span>
+      <div class="row">
+        <div class="col s12">
+
+          <div class="row">
+            <div class="input-field col m6 s12">
+              <input id="title" type="text"
+                     placeholder="Titel"
+                     [(ngModel)]="customer.title" name="title">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m6 s12">
+              <input id="name" type="text"
+                     placeholder="Name"
+                     [(ngModel)]="customer.name" name="name">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m6 s12">
+              <input id="pre_name" type="text"
+                     placeholder="Vorname"
+                     [(ngModel)]="customer.pre_name" name="pre_name">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m6 s12">
+              <input id="street" type="text"
+                     placeholder="Strasse"
+                     [(ngModel)]="customer.street" name="street">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m6 s12">
+              <input id="additional_line" type="text"
+                     placeholder="Zusätzliche Zeile"
+                     [(ngModel)]="customer.additional_line" name="additional_line">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m2 s2">
+              <input id="zip_code" type="text"
+                     placeholder="Postleitzahl"
+                     [(ngModel)]="customer.zip_code" name="zip_code">
+            </div>
+
+            <div class="input-field col s4">
+              <select [ngModel]="customer.country_id" name="country_id">
+                <option value="" disabled selected>Land</option>
+                <option *ngFor="let country of countries"
+                        [ngValue]="country.name">{{country.name}} {{country.id}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m6 s12">
+              <input id="phone" type="text"
+                     placeholder="Telefonnummer"
+                     [(ngModel)]="customer.phone_number" name="phone">
+            </div>
+          </div>
+  <div class="row">
+            <div class="input-field col m6 s12">
+              <input id="cell_phone_number" type="text"
+                     placeholder="Mobilnummer"
+                     [(ngModel)]="customer.cell_phone_number" name="cell_phone">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m6 s12">
+              <input id="email" type="email"
+                     placeholder="E-Mail"
+                     [(ngModel)]="customer.email" name="email">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m6 s12">
+              <input id="birthday" type="date"
+                     [(ngModel)]="customer.date" name="date">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s3">
+              <div class="switch">
+                <label>
+                  Newsletter
+                  <input id="Newsletter" type="checkbox"
+                         [(ngModel)]="customer.newsletter" name="newsletter">
+                  <span class="lever"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col s3">
+              <div class="switch">
+                <label>
+                  Post
+                  <input id="mail" type="checkbox"
+                         [(ngModel)]="customer.mail" name="mail">
+                  <span class="lever"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s3">
+              <div class="switch">
+                <label>
+                  Mitarbeiter
+                  <input id="employee" type="checkbox"
+                         [(ngModel)]="customer.employee" name="employee">
+                  <span class="lever"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="card-action">
+      <button class="btn waves-effect indigo waves-light" type="submit"
+        name="action">Speichern
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </form>
+</div>

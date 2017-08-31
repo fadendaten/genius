@@ -1,0 +1,180 @@
+<div class="row">
+  <div class="col s10">
+    <div class="card indigo darken-1">
+      <div class="card-content white-text">
+        <span class="card-title">Einkauf</span>
+        <br/>
+        <div class="row">
+          <md-select class="col s12"
+                     placeholder="Kundin / Kunde"
+                     [(ngModel)]="deal.customer">
+            <md-option *ngFor="let customer of customers" [value]="customer">
+              {{customer.toString()}}
+            </md-option>
+          </md-select>
+        </div>
+        <form (ngSubmit)="search(query)">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="search" type="text"
+                     placeholder="Bitte geben Sie einen EAN ein"
+                     [(ngModel)]="query" name="query">
+            </div>
+          </div>
+        </form>
+        <div *ngIf="!deal.isEmpty()" class="row">
+          <div class="col s12">
+            <h5> Einkauf Store </h5>
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Nummer</th>
+                  <th>Name</th>
+                  <th>Grösse</th>
+                  <th>Farbe</th>
+                  <th>Preis</th>
+                  <th>Anzahl</th>
+                  <th>Total</th>
+                  <th></th>
+                  <th *ngIf="deal.customer"></th>
+                </tr>
+              </thead>
+              <tr *ngFor="let item of deal.items">
+                <th class="">
+                  <img [src]="item.imageUrl()" class="responsive-img
+                  product-image" />
+                </th>
+                <td>{{item.number}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.size}}</td>
+                <td>{{item.colour}}</td>
+                <td>{{item.price_chf}} CHF</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.totalPrice()}} CHF</td>
+                <td>
+                  <button class="btn" (click)="deal.deleteItem($event, item)">
+                    <i class="material-icons">delete</i>
+                  </button>
+                </td>
+                <td *ngIf="deal.customer">
+                  <button class="btn" (click)="addToWebshop($event, item)">
+                    <i class="material-icons">shopping_cart</i>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div *ngIf="!webshopDeal.isEmpty()" class="row">
+          <div class="col s12">
+            <h5> Webshop Bestellung </h5>
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Nummer</th>
+                  <th>Name</th>
+                  <th>Grösse</th>
+                  <th>Farbe</th>
+                  <th>Preis</th>
+                  <th>Anzahl</th>
+                  <th>Total</th>
+                  <th></th>
+                  <th *ngIf="deal.customer"></th>
+                </tr>
+              </thead>
+              <tr *ngFor="let item of webshopDeal.items">
+                <th class="">
+                  <img [src]="item.imageUrl()" class="responsive-img
+                  product-image" />
+                </th>
+                <td>{{item.number}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.size}}</td>
+                <td>{{item.colour}}</td>
+                <td>{{item.price_chf}} CHF</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.totalPrice()}} CHF</td>
+                <td>
+                  <button class="btn" (click)="webshopDeal.deleteItem($event, item)">
+                    <i class="material-icons">delete</i>
+                  </button>
+                </td>
+                <td *ngIf="deal.customer">
+                  <button class="btn" (click)="addToDeal($event, item)">
+                    <i class="material-icons">store</i>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!deal.isEmpty() || !webshopDeal.isEmpty()" class="card-action">
+        <div class="row">
+          <div class="col s12">
+            <button class="btn right">
+              Cash
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col s2">
+    <div class="row">
+      <div class="card indigo darken-1">
+        <div class="card-content white-text">
+          <h5>
+            Total
+          </h5>
+          <p>
+            {{deal.totalPrice()}} {{deal.currency}}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!webshopDeal.isEmpty()" class="row">
+      <div class="card indigo darken-1">
+        <div class="card-content white-text">
+          <h5>
+            Webshop Total
+          </h5>
+          <p>
+            {{webshopDeal.totalPrice()}} {{webshopDeal.currency}}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="deal.customer" class="row">
+      <div class="card indigo darken-1">
+        <div class="card-content white-text">
+          <p>
+            {{deal.customer.toString()}}
+          </p>
+          <hr>
+          <br>
+          <p>
+            Kundenkarte: {{deal.customer.cardValue}} CHF
+          </p>
+          <br>
+          <md-progress-bar
+            class="example-margin"
+            [color]="primary"
+            [mode]="buffer"
+            [value]="deal.customer.progress"
+            [bufferValue]="0">
+        </md-progress-bar>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
